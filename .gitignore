@@ -1,2 +1,15 @@
-# Project exclude paths
-/foodie-dev-mapper/target/
+# Created by .ignore support plugin (hsz.mobi)
+foodie-dev-api/src/test/
+foodie-dev-api/target/
+foodie-dev-common/src/
+foodie-dev-mapper/src/test/
+foodie-dev-mapper/target/
+foodie-dev-pojo/src/main/resources/
+foodie-dev-pojo/src/test/
+foodie-dev-pojo/target/
+foodie-dev-service/src/main/resources/
+foodie-dev-service/src/test/
+foodie-dev-service/target/
+vcs.xml
+.idea/
+!/.gitignore
