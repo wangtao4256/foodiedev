@@ -70,5 +70,5 @@ public class Users {
     @Column(name = "updated_time")
     private Date updatedTime;
 
-    public static final String USERNAME = "user_name";
+    public static final String USERNAME = "username";
 }
