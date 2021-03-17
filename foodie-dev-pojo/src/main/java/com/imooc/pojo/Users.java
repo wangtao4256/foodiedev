@@ -71,4 +71,6 @@ public class Users {
     private Date updatedTime;
 
     public static final String USERNAME = "username";
+
+    public static final String PASSWORD = "password";
 }

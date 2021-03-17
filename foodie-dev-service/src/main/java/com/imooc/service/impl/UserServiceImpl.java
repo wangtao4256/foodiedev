@@ -1,6 +1,7 @@
 package com.imooc.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.imooc.enums.SexEnum;
 import com.imooc.mapper.UsersMapper;
 import com.imooc.pojo.Users;
 import com.imooc.pojo.bo.UserBO;
@@ -41,12 +42,24 @@ public class UserServiceImpl implements UserService {
         users.setNickname(createUserBO.getUsername());
         Date date = DateUtils.strToDate("1900-01-01");
         users.setBirthday(date);
+        //性别默认保密
+        users.setSex(SexEnum.secret.getType());
+        users.setCreatedTime(new Date());
+        users.setUpdatedTime(new Date());
         try {
             users.setPassword(MD5Utils.getMD5Str(createUserBO.getPassword()));
-        } catch (NoSuchAlgorithmException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         usersMapper.insert(users);
         return users;
+    }
+
+    @Override
+    public Users queryUserForLogin(String username, String password) {
+        QueryWrapper wrapper = new QueryWrapper<Users>();
+        wrapper.eq(Users.USERNAME, username);
+        wrapper.eq(Users.PASSWORD, password);
+        return usersMapper.selectOne(wrapper);
     }
 }

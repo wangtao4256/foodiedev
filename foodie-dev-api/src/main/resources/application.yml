@@ -17,3 +17,5 @@ spring:
 mybatis:
   type-aliases-package: com.imooc.pojo
   mapper-locations: classpath:mapper/*.xml
+server:
+  port: 8888
