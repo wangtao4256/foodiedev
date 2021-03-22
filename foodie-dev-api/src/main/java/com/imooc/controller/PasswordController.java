@@ -3,12 +3,16 @@ package com.imooc.controller;
 import com.imooc.pojo.Users;
 import com.imooc.pojo.bo.UserBO;
 import com.imooc.service.UserService;
+import com.imooc.utils.CookieUtil;
+import com.imooc.utils.JacksonUtil;
 import com.imooc.utils.MD5Utils;
 import com.imooc.utils.Results;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.security.NoSuchAlgorithmException;
 
 @RestController
@@ -57,7 +61,7 @@ public class PasswordController {
     }
 
     @PostMapping("/login")
-    public Results login(@RequestBody UserBO userBO) throws NoSuchAlgorithmException {
+    public Results login(@RequestBody UserBO userBO, HttpServletRequest request, HttpServletResponse response) throws NoSuchAlgorithmException {
         String username = userBO.getUsername();
         String password = userBO.getPassword();
         String confirmPassword = userBO.getConfirmPassword();
@@ -69,6 +73,13 @@ public class PasswordController {
         if (null == users) {
             return Results.error("用户名或密码不正确");
         }
+        CookieUtil.setCookie(request, response, "user", JacksonUtil.obj2String(users), true);
         return Results.success(users);
+    }
+
+    @PostMapping("/logout")
+    public Results logout(@RequestParam String userId, HttpServletResponse response, HttpServletRequest request) throws NoSuchAlgorithmException {
+        CookieUtil.deleteCookie(request, response, "user");
+        return Results.success();
     }
 }
