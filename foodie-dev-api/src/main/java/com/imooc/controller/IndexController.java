@@ -5,6 +5,7 @@ import com.imooc.enums.CategoryTypeEnum;
 import com.imooc.pojo.Carousel;
 import com.imooc.pojo.Category;
 import com.imooc.pojo.vo.CategoryVO;
+import com.imooc.pojo.vo.NewItemsVO;
 import com.imooc.service.CarouseService;
 import com.imooc.service.CategoryCustomService;
 import com.imooc.service.CategoryService;
@@ -42,5 +43,15 @@ public class IndexController {
         List<CategoryVO> categories = categoryCustomService.getSubCategoryByFatherId(rootCatId);
         return Results.success(categories);
     }
+
+    @GetMapping("sixNewItems/{rootCatId}")
+    public Results sixNewItems(@PathVariable("rootCatId") Integer rootCatId) {
+        if (null == rootCatId) {
+            return Results.error("分类不存在");
+        }
+        List<NewItemsVO> sixNewItemsLazy = categoryService.getSixNewItemsLazy(rootCatId);
+        return Results.success(sixNewItemsLazy);
+    }
+
 
 }

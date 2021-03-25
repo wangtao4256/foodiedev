@@ -1,19 +1,25 @@
 package com.imooc.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.google.common.collect.Maps;
+import com.imooc.mapper.CategoryCustomMapper;
 import com.imooc.mapper.CategoryMapper;
 import com.imooc.pojo.Category;
+import com.imooc.pojo.vo.NewItemsVO;
 import com.imooc.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryMapper categoryMapper;
 
+    @Autowired
+    private CategoryCustomMapper categoryCustomMapper;
     @Override
     public List<Category> getFirstLevelCategory(Integer type) {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -29,7 +35,9 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> getSixNewItemsLazy(Integer rootCatId) {
-        return null;
+    public List<NewItemsVO> getSixNewItemsLazy(Integer rootCatId) {
+        Map<String,Object> paramMap= Maps.newHashMap();
+        paramMap.put("rootCatId",rootCatId);
+        return categoryCustomMapper.getSixNewItemsLazy(paramMap);
     }
 }
