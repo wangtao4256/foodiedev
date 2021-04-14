@@ -1,8 +1,11 @@
 package com.imooc.pojo;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 
 @Table(name = "order_items")
+@Builder
 public class OrderItems {
     /**
      * 主键id

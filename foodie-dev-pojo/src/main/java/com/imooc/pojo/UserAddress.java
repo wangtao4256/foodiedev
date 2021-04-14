@@ -1,9 +1,12 @@
 package com.imooc.pojo;
 
+import lombok.Builder;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Table(name = "user_address")
+@Builder
 public class UserAddress {
     /**
      * 地址主键id
